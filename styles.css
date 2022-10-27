@@ -1,0 +1,301 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.6em;
+  word-spacing: 1px;
+  text-align: justify;
+  min-height: 800px;
+}
+
+html {
+  font-size: 62.5%;
+  
+}
+
+.container {
+  width: 584px;
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  background-color: rgb(36, 37, 38);
+  border-radius: 12px;
+}
+
+/* ----------------------------------- */
+/* -------TABS Item------------------------ */
+.tabs{
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+.tab-item{
+  background-color: rgba(58, 59, 60, 0.4);
+  flex: 1;
+  color: rgb(35, 116, 225);
+  text-align: center;
+  padding: 22px 0px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 4px solid rgba(35, 116, 225, 0);
+  border-radius: 4px;
+  opacity: 0.8;
+  transition: all 0.4s ease;
+}
+
+.tab-item.active {
+  opacity: 1;
+}
+
+.tab-item:hover{
+  background-color: #d7e6f5;
+  border-bottom: 4px solid rgba(35, 116, 225, 0.2);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  
+}
+
+div .line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  background-color: rgb(35, 116, 225);
+  width: 146px;
+  border-radius: 4px;
+  transition: all 0.2s linear;
+}
+
+/* -------END (TAB Item)----------------- */
+/* ---------------------------------- */
+
+
+/* --------------------------------- */
+/* --------Tabs Content------------- */
+
+.pages {
+  width: 100%;
+  background-color: rgb(36, 37, 38);
+  min-height: 886px;
+  margin: 0 18px;
+}
+
+.page-content {
+  display: none;
+}
+
+.page-content.active {
+  display: block;
+}
+
+.page-content > h2 {
+  margin-top: 32px;
+}
+
+.page-content > p {
+  margin-top: 12px;
+  
+}
+
+/* --------Messages------- */
+div.message-container {
+  display: inline-block;
+  
+}
+
+div.mess-container > div {
+  margin-top: 36px;
+  width: 100%;
+  height: 800px;  
+  overflow: hidden;
+}
+ul.mess-box {
+  height: 85%;
+  overflow-y: scroll;
+  list-style-type: none;
+  margin-right: -20px;
+}
+
+li.mess-content {
+  margin-top: 12px;
+  display: flex;
+  width: 100%;
+  position: relative;
+  justify-content: space-evenly;
+}
+
+
+
+.edit-message-icon {
+  position: absolute;
+  font-size: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 4px;
+  cursor: pointer;
+  padding: 0px 12px;
+  border-radius: 50%;
+}
+
+.edit-message-icon:hover {
+  background-color: rgb(58, 59, 60);
+}
+
+.edit-message-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+  border-radius: 8px;
+  background-color: rgb(36, 37, 38);
+  box-shadow: 0 0 2px rgb(64, 65, 66);
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.4rem;
+  list-style-type: none;
+  display: none;
+  z-index: 999;
+}
+
+.edit-message-content.active {
+  display: block;
+}
+
+.layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  display: none;
+  z-index: 998;
+}
+
+
+.edit-message-content >li {
+  padding: 4px 24px;
+  cursor: pointer;
+}
+
+.edit-message-content >li:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.edit-message-content >li:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.edit-message-content li:hover {
+  background-color: #d7e6f5;
+  color: rgb(35, 116, 225);
+}
+
+
+
+li.mess-content > h4 {
+  width: 35%;
+}
+
+li.mess-content > p {
+  width: 60%;
+  padding: 12px 24px;
+  background-color: rgba(58, 59, 60, 0.4);
+  border-radius: 18px;
+}
+
+/* --------END (Tabs Content)------- */
+/* ---------------------------------- */
+
+.createForm {
+  display: flex;
+  margin-top: 32px;
+  justify-content: space-evenly;
+}
+
+input[name=name] {
+  width: 35%;
+  
+  margin-right: 26px;
+  border-radius: 8px;
+  height: 36px;
+  background-color: rgb(45, 45, 47);
+  color: #fff;
+}
+
+input[name=description] {
+  width: 65%;
+  border-radius: 8px;
+  height: 36px;
+  background-color: rgb(45, 45, 47);
+  color: #fff;
+  margin-right: 2px;
+}
+
+#create {
+  display: block;
+  margin-top: 20px;
+  background-color: rgb(45, 45, 47);
+  height: 28px;
+  border: none;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 0px;
+}
+
+.edit-mess {
+  padding: 48px 0px;
+  background-color: rgb(36, 37, 38);
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  display: none;
+}
+
+.edit-mess.active {
+  z-index: 999;
+  display: block;
+}
+
+
+#edit-mess {
+  display: block;
+  margin-top: 20px;
+  background-color: rgb(80, 81, 81);
+  height: 28px;
+  border: none;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 0px;
+  width: 97%;
+}
+
+input[name=name-edit] {
+  width: 178px;
+  
+  margin-right: 26px;
+  border-radius: 8px;
+  height: 36px;
+  background-color: rgb(45, 45, 47);
+  color: #fff;
+}
+
+input[name=description-edit] {
+  width: 334px;
+  border-radius: 8px;
+  height: 36px;
+  background-color: rgb(45, 45, 47);
+  color: #fff;
+  
+}
