@@ -11,6 +11,8 @@ const progress = $('#progress')
 const prevBtn = $('.btn-prev')
 const nextBtn = $('.btn-next')
 const repeatBtn = $('.btn-repeat')
+const volumeBtn = $('.btn-volume')
+const volumeSetUp  = $('.volume-set-up')
 
 
 const app = {
@@ -18,54 +20,63 @@ const app = {
   isPlaying: false,
   songs: [
     {
+      id : 0,
       name: 'Quên Anh ĐI',
       singer: 'MONO',
       path: './assests/music/song1.mp3',
       image: './assests/img/song1.jpg',
     },
     {
+      id : 1,
       name: 'Waiting For You',
       singer: 'MONO',
       path: './assests/music/song2.mp3',
       image: './assests/img/song1.jpg',
     },
     {
+      id : 2,
       name: 'Em Là',
       singer: 'MONO',
       path: './assests/music/song3.mp3',
       image: './assests/img/song1.jpg',
     },
     {
+      id : 3,
       name: 'Buông',
       singer: 'MONO',
       path: './assests/music/song4.mp3',
       image: './assests/img/song1.jpg',
     },
     {
+      id : 4,
       name: 'Anh Không Thể',
       singer: 'MONO',
       path: './assests/music/song5.mp3',
       image: './assests/img/song1.jpg',
     },
     {
+      id : 5,
       name: 'L.I.E',
       singer: 'MONO',
       path: './assests/music/song6.mp3',
       image: './assests/img/song1.jpg',
     },
     {
+      id : 6,
       name: 'Do You',
       singer: 'MONO',
       path: './assests/music/song7.mp3',
       image: './assests/img/song1.jpg',
     },
     {
+      id : 7,
       name: 'Sparkle',
       singer: 'RADWIMPS',
       path: './assests/music/song8.mp3',
       image: './assests/img/song8.png',
     },
     {
+      id : 8,
       name: 'Grand Escape',
       singer: 'RADWIMPS',
       path: './assests/music/song9.mp3',
@@ -75,7 +86,7 @@ const app = {
 
   render: function(){
     const htmls = this.songs.map(song => {
-      return `<div class="song">
+      return `<div class="song" data-id="${song.id}">
         <div class="thumb" style="background-image: url('${song.image}');">
         </div>
         <div class="body">
@@ -153,6 +164,24 @@ const app = {
       }
     }
 
+    volumeBtn.onclick = function(e){
+      console.log(1)
+     
+      if(!volumeSetUp.classList[1]){
+        volumeSetUp.classList.add('show')
+      } else {
+        volumeSetUp.classList.remove('show')
+      }
+    }
+
+    
+
+    // Khi thanh volume bi dieu chinh
+    volumeSetUp.onchange = function(e){
+        
+        audio.volume = e.target.value
+    }
+
     // Xu ly khi tua song
     progress.onchange = function(e) {
       const seekTime = audio.duration / 100 * e.target.value
@@ -202,8 +231,23 @@ const app = {
     // Tai thong tin bai hat dau tien vao UI khi chay ung dung
     this.loadCurrentSong()
     // Render playlist
+
+    
+
     this.render()
   },
 }
 
 app.start()
+
+const songs = $$('.song')
+
+songs.forEach((song) => {
+  song.onclick = () => {
+    app.currentIndex = song.dataset.id
+    app.loadCurrentSong()
+    audio.play()
+  }
+})
+
+

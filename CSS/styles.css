@@ -98,6 +98,23 @@ header h2 {
   background-color: var(--primary-color);
 }
 
+.btn-volume {
+  position: relative;
+}
+
+.volume-set-up {
+  display: none;
+  position: absolute;
+  /* transform: translateX(-50%); */
+  top: -120%;
+  left: -50%;
+  transform: rotate(-90deg);
+}
+
+.volume-set-up.show {
+  display: block;
+}
+
 .progress{
   width: 100%;
   -webkit-appearance: none;
