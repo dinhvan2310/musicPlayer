@@ -162,10 +162,13 @@ const app = {
         const progressPercent = Math.floor(audio.currentTime / audio.duration * 100)
         progress.value = progressPercent
       }
+      if(audio.currentTime === audio.duration) {
+        _this.nextSong();
+        audio.play()
+      }
     }
 
     volumeBtn.onclick = function(e){
-      console.log(1)
      
       if(!volumeSetUp.classList[1]){
         volumeSetUp.classList.add('show')
@@ -178,7 +181,6 @@ const app = {
 
     // Khi thanh volume bi dieu chinh
     volumeSetUp.onchange = function(e){
-        
         audio.volume = e.target.value
     }
 
