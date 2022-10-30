@@ -18,21 +18,25 @@ html {
   font-family: 'Lato', sans-serif;
 }
 
-.player{
+.player {
   position: relative;
   max-width: 480px;
   margin: 0 auto;
 }
+
 .player .icon-pause {
   display: none;
 }
+
 .player.playing .icon-pause {
   display: inline-block
 }
+
 .player.playing .icon-play {
   display: none;
 }
-.dashboard{
+
+.dashboard {
   padding: 16px 16px 14px;
   background-color: #fff;
   position: fixed;
@@ -47,22 +51,25 @@ header {
   text-align: center;
   margin-bottom: 10px;
 }
+
 header h4 {
   color: var(--primary-color);
   font-size: 12px;
 }
+
 header h2 {
   color: var(--text-color);
   font-size: 20px;
 }
 
 /* CD */
-.cd{
+.cd {
   display: flex;
   margin: auto;
   width: 200px;
 }
-.cd-thumb{
+
+.cd-thumb {
   width: 100%;
   padding-top: 100%;
   border-radius: 50%;
@@ -72,20 +79,23 @@ header h2 {
 }
 
 /* CONTROL */
-.control{
+.control {
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 18px 0 8px 0;
 }
-.control .btn{
+
+.control .btn {
   color: #666;
   padding: 18px;
   font-size: 18px;
 }
+
 .control .btn.active {
   color: var(--primary-color);
 }
+
 .control .btn-toggle-play {
   width: 56px;
   height: 56px;
@@ -102,20 +112,44 @@ header h2 {
   position: relative;
 }
 
+
 .volume-set-up {
-  display: none;
   position: absolute;
-  /* transform: translateX(-50%); */
-  top: -120%;
+  top: -100%;
   left: -50%;
+  /* transform: translateX(-50%); */
+  display: none;
   transform: rotate(-90deg);
+  -webkit-appearance: none;
+  width: 120px;
+  height: 6px;
+  border-radius: 15px;
+  /* background: #d3d3d3; */
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  box-shadow: inset -407px 0 400px var(--primary-color);
+
 }
+
+.volume-set-up::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: DodgerBlue;
+  cursor: pointer;
+}
+
+
 
 .volume-set-up.show {
   display: block;
 }
 
-.progress{
+.progress {
   width: 100%;
   -webkit-appearance: none;
   height: 6px;
