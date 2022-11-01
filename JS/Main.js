@@ -21,10 +21,12 @@ const playList = $('.playlist')
 const app = {
   currentIndex: 0,
   viewedIndex: [],
+  prevScrollTop: 0,
   isPlaying: false,
   isVolumeUp: false,
   isRandomUp: false,
   isRepeatUp: false,
+  isScroll: true,
   songs: [
     {
       id: 0,
@@ -108,7 +110,7 @@ const app = {
     })
     playList.innerHTML = htmls.join('')
 
-    playList.onclick = function(e) {
+    playList.onclick = function (e) {
       const songsClass = $$('.song')
       const songNode = e.target.closest('.song:not(.active)')
       if (songNode || e.target.closest('.option')) {
@@ -128,16 +130,7 @@ const app = {
       }
     }
 
-    // const songsClass = $$('.song')
-    // songsClass.forEach((song) => {
-    //   song.onclick = () => {
-    //     songsClass[app.currentIndex].classList.remove('active')
-    //     app.currentIndex = song.dataset.id
-    //     song.classList.add('active')
-    //     app.loadCurrentSong()
-    //     audio.play()
-    //   }
-    // })
+
 
   },
   defineProperties: function () {
@@ -163,9 +156,25 @@ const app = {
     // Xu ly phong to/ thu nho CD
     document.onscroll = function () {
       const scrollTop = window.scrollY || document.documentElement.scrollTop
-      const newCdWidth = cdWidth - scrollTop
-      cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
-      cd.style.opacity = newCdWidth / cdWidth
+      if (_this.isScroll) {
+        if (scrollTop < _this.prevScrollTop) {
+          const newCdWidth = cdWidth - scrollTop
+          if (cd.offsetWidth > newCdWidth) {
+
+          } else {
+
+            cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
+            cd.style.opacity = newCdWidth / cdWidth
+          }
+        } else {
+          const newCdWidth = cdWidth - scrollTop
+          cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
+          cd.style.opacity = newCdWidth / cdWidth
+        }
+
+
+      }
+      _this.prevScrollTop = scrollTop
     }
 
     // Xu ly khi click play
@@ -230,8 +239,15 @@ const app = {
     volumeBtn.onclick = function (e) {
       _this.isVolumeUp = !_this.isVolumeUp
       volumeSetUp.classList.toggle('show', _this.isVolumeUp)
+      e.stopPropagation()
     }
 
+    window.onclick = () => {
+      if (_this.isVolumeUp) {
+        _this.isVolumeUp = !_this.isVolumeUp
+        volumeSetUp.classList.remove('show', _this.isVolumeUp)
+      }
+    }
 
 
     // Khi thanh volume bi dieu chinh
@@ -247,6 +263,7 @@ const app = {
 
     //Khi next song
     nextBtn.onclick = function () {
+
       const songsClass = $$('.song')
       songsClass[_this.currentIndex].classList.remove('active')
       if (_this.isRandomUp) {
@@ -257,12 +274,13 @@ const app = {
       songsClass[_this.currentIndex].classList.add('active')
       audio.play()
       _this.render()
-      
       _this.scrollToActiveSong(1)
+
     }
 
     // Khi prev song
     prevBtn.onclick = function () {
+
       const songsClass = $$('.song')
       songsClass[_this.currentIndex].classList.remove('active')
       if (_this.isRandomUp) {
@@ -274,14 +292,16 @@ const app = {
       audio.play()
       _this.render()
       _this.scrollToActiveSong(0)
+
     }
 
 
   },
 
-  scrollToActiveSong: function(checked) {
-    if(checked){
-      if(this.currentIndex %3 ===0) {
+  scrollToActiveSong: function (checked) {
+    this.isScroll = false
+    if (checked) {
+      if (this.currentIndex % 3 === 0) {
         setTimeout(() => {
           $('.song.active').scrollIntoView({
             behavior: 'smooth',
@@ -297,23 +317,26 @@ const app = {
         }, 100)
       }
     } else {
-      if(this.currentIndex === this.songs.length - 1 || this.currentIndex % 2 === 0) {
+      if (this.currentIndex === this.songs.length - 1 || this.currentIndex % 2 === 0) {
         setTimeout(() => {
           $('.song.active').scrollIntoView({
             behavior: 'smooth',
             block: 'center',
           })
-        }, 100)
+        }, 80)
       } else {
         setTimeout(() => {
           $('.song.active').scrollIntoView({
             behavior: 'smooth',
             block: 'nearest'
           })
-        }, 100)
+        }, 80)
       }
     }
-    
+    setTimeout(() => {
+      this.isScroll = true
+
+    }, 480)
   },
 
   loadCurrentSong: function () {
@@ -322,8 +345,6 @@ const app = {
     audio.src = this.currentSong.path
   },
   nextSong: function () {
-
-  
     this.currentIndex++
     if (this.currentIndex >= this.songs.length) {
       this.currentIndex = 0
@@ -354,7 +375,6 @@ const app = {
     this.viewedIndex.push(this.currentIndex)
     this.loadCurrentSong()
     audio.play()
-    console.log(this.viewedIndex)
   },
 
   start: function () {
@@ -375,7 +395,3 @@ const app = {
 }
 
 app.start()
-
-
-
-
