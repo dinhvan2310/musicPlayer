@@ -12,10 +12,10 @@ const prevBtn = $('.btn-prev')
 const nextBtn = $('.btn-next')
 const resetBtn = $('.btn-reset')
 const volumeBtn = $('.btn-volume')
-const volumeSetUp = $('.volume-set-up')
 const randomBtn = $('.btn-random')
 const repeatBtn = $('.btn-repeat')
 const playList = $('.playlist')
+const volumeSetUp = $('.volume-set-up')
 
 
 const app = {
@@ -256,8 +256,11 @@ const app = {
 
     // Khi thanh volume bi dieu chinh
     volumeSetUp.ontouchmove = function (e) {
+      console.log(e.target.value)
       audio.volume = e.target.value
     }
+
+
     volumeSetUp.ontouchend = () => {
       if (_this.isVolumeUp) {
         _this.isVolumeUp = !_this.isVolumeUp
