@@ -171,8 +171,12 @@ const app = {
           cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
           cd.style.opacity = newCdWidth / cdWidth
         }
-
-
+        
+      }
+      if (_this.currentIndex === 0) {
+        const newCdWidth = cdWidth - scrollTop
+          cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
+          cd.style.opacity = newCdWidth / cdWidth
       }
       _this.prevScrollTop = scrollTop
     }
@@ -251,8 +255,14 @@ const app = {
 
 
     // Khi thanh volume bi dieu chinh
-    volumeSetUp.onchange = function (e) {
+    volumeSetUp.ontouchmove = function (e) {
       audio.volume = e.target.value
+    }
+    volumeSetUp.ontouchend = () => {
+      if (_this.isVolumeUp) {
+        _this.isVolumeUp = !_this.isVolumeUp
+        volumeSetUp.classList.remove('show', _this.isVolumeUp)
+      }
     }
 
     // Xu ly khi tua song
@@ -274,7 +284,9 @@ const app = {
       songsClass[_this.currentIndex].classList.add('active')
       audio.play()
       _this.render()
-      _this.scrollToActiveSong(1)
+      _this.scrollToActiveSong()
+
+      
 
     }
 
@@ -291,52 +303,25 @@ const app = {
       songsClass[_this.currentIndex].classList.add('active')
       audio.play()
       _this.render()
-      _this.scrollToActiveSong(0)
+      _this.scrollToActiveSong()
 
     }
 
 
   },
 
-  scrollToActiveSong: function (checked) {
+  scrollToActiveSong: function () {
     this.isScroll = false
-    if (checked) {
-      if (this.currentIndex % 3 === 0) {
-        setTimeout(() => {
-          $('.song.active').scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-          })
-        }, 100)
-      } else {
-        setTimeout(() => {
-          $('.song.active').scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest'
-          })
-        }, 100)
-      }
-    } else {
-      if (this.currentIndex === this.songs.length - 1 || this.currentIndex % 2 === 0) {
-        setTimeout(() => {
-          $('.song.active').scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-          })
-        }, 80)
-      } else {
-        setTimeout(() => {
-          $('.song.active').scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest'
-          })
-        }, 80)
-      }
-    }
+
+      $('.song.active').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      })
+
     setTimeout(() => {
       this.isScroll = true
 
-    }, 480)
+    }, 750)
   },
 
   loadCurrentSong: function () {
