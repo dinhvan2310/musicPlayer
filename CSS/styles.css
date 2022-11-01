@@ -228,3 +228,20 @@ header h2 {
   color: #999;
   font-size: 18px;
 }
+
+
+@media (max-width: 412px) {
+  .cd {
+    width: 120px;
+  }
+  .control .btn {
+    font-size: 14px;
+  }
+  .control .btn-toggle-play {
+    height: 32px;
+    width: 32px;
+  }
+  .playlist {
+    margin-top: 320px;
+  }
+}
