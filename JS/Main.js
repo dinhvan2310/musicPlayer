@@ -1,6 +1,8 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
 
+const PLAYER_STORAGE_KEY = 'THAO_PLAYER'
+
 const player = $('.player')
 const cd = $('.cd')
 const heading = $('header h2')
@@ -27,6 +29,7 @@ const app = {
   isRandomUp: false,
   isRepeatUp: false,
   isScroll: true,
+  config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
   songs: [
     {
       id: 0,
@@ -93,6 +96,11 @@ const app = {
     },
   ],
 
+  setConfig: function(key, value) {
+    this.config[key] = value
+    localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
+  },
+
   render: function () {
     let _this = app
     const htmls = this.songs.map((song, index) => {
@@ -143,6 +151,9 @@ const app = {
   handleEvents: function () {
     const _this = this
     const cdWidth = cd.offsetWidth
+
+
+    
 
     // Xu ly CD quay / dung 
     const cdThumbAnimate = cdThumb.animate([
@@ -199,12 +210,14 @@ const app = {
     // Xu ly khi click repeat
     repeatBtn.onclick = function () {
       _this.isRepeatUp = !_this.isRepeatUp
+      _this.setConfig('isRepeatUp', _this.isRepeatUp)
       repeatBtn.classList.toggle('active', _this.isRepeatUp)
     }
 
     // Khi click random song
     randomBtn.onclick = function () {
       _this.isRandomUp = !_this.isRandomUp
+      _this.setConfig('isRandomUp', _this.isRandomUp)
       randomBtn.classList.toggle('active', _this.isRandomUp)
     }
 
@@ -255,8 +268,7 @@ const app = {
 
 
     // Khi thanh volume bi dieu chinh
-    volumeSetUp.ontouchmove = function (e) {
-      console.log(e.target.value)
+    volumeSetUp.oninput = function (e) {
       audio.volume = e.target.value
     }
 
@@ -288,9 +300,6 @@ const app = {
       audio.play()
       _this.render()
       _this.scrollToActiveSong()
-
-      
-
     }
 
     // Khi prev song
@@ -308,6 +317,21 @@ const app = {
       _this.render()
       _this.scrollToActiveSong()
 
+    }
+
+    // Xu ly khi an phim Right || Left Arrow
+    window.onkeydown = (e) => {
+      e.preventDefault();
+      if (e.keyCode === 39) {
+        nextBtn.click()
+      }
+      if (e.keyCode === 37) {
+        prevBtn.click()
+      }
+      if(e.keyCode === 32) {
+        playBtn.click()
+      }
+      console.log(e.keyCode)
     }
 
 
@@ -332,6 +356,12 @@ const app = {
     cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
     audio.src = this.currentSong.path
   },
+  
+  loadConfig: function() {
+    this.isRandomUp = this.config.isRandomUp
+    this.isRepeatUp = this.config.isRepeatUp
+  },
+
   nextSong: function () {
     this.currentIndex++
     if (this.currentIndex >= this.songs.length) {
@@ -366,6 +396,9 @@ const app = {
   },
 
   start: function () {
+
+    this.loadConfig()
+
     // Dinh nghia cac thuoc tinh cho object
     this.defineProperties()
 
@@ -379,6 +412,11 @@ const app = {
 
 
     this.render()
+
+
+    repeatBtn.classList.toggle('active', this.isRepeatUp)
+    randomBtn.classList.toggle('active', this.isRandomUp)
+
   },
 }
 
