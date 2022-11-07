@@ -19,6 +19,8 @@ const repeatBtn = $('.btn-repeat')
 const playList = $('.playlist')
 const volumeSetUp = $('.volume-set-up')
 
+let show 
+
 
 const app = {
   currentIndex: 0,
@@ -319,7 +321,7 @@ const app = {
 
     }
 
-    // Xu ly khi an phim Right || Left Arrow
+    // Xu ly khi an phim Right || Left Arrow || Up Arrow || Down Arrow
     window.onkeydown = (e) => {
       e.preventDefault();
       if (e.keyCode === 39) {
@@ -331,7 +333,50 @@ const app = {
       if(e.keyCode === 32) {
         playBtn.click()
       }
-      console.log(e.keyCode)
+      if (e.keyCode === 38) {
+        
+        if (audio.volume <= 0.9) {
+          audio.volume = audio.volume + 0.1
+        }
+        if (audio.volume > 0.9) {
+          audio.volume = 1
+        }
+        
+        volumeSetUp.value = audio.volume
+        
+        clearTimeout(show)
+        volumeSetUp.classList.add('show', _this.isVolumeUp)
+        show = setTimeout(function(){
+          volumeSetUp.classList.remove('show', _this.isVolumeUp)
+          
+        console.log(audio.volume, "len")
+        },2000)
+
+
+        
+
+      }
+      if (e.keyCode === 40) {
+        if (audio.volume >= 0.1) {
+          audio.volume = audio.volume - 0.1
+        } else if (audio.volume < 0.1) {
+          audio.volume = 0
+        }
+        volumeSetUp.value = audio.volume
+        
+        clearTimeout(show)
+        volumeSetUp.classList.add('show', _this.isVolumeUp)
+        show = setTimeout(function(){
+          volumeSetUp.classList.remove('show', _this.isVolumeUp)
+          console.log(audio.volume, "xuong")
+        },2000)
+
+
+        
+
+      }
+      
+      
     }
 
 
