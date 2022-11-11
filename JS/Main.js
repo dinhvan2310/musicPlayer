@@ -1,5 +1,8 @@
+import { Validator } from "../../Main_Resource/Validator.js"
+
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
+
 
 const PLAYER_STORAGE_KEY = 'THAO_PLAYER'
 
@@ -18,8 +21,93 @@ const randomBtn = $('.btn-random')
 const repeatBtn = $('.btn-repeat')
 const playList = $('.playlist')
 const volumeSetUp = $('.volume-set-up')
+const formLogin =  $('.form__logIn')
+const formSignUp = $('.form__signUp')
+const signUpBtn = $('#signUpBtn')
+const signUpSubmit = $('#signUpSubmit')
 
 let show 
+
+signUpBtn.onclick = function () {
+  formLogin.style.display = 'none'
+  formSignUp.style.display = 'flex'
+}
+
+Validator({
+  form: "#form-1",
+  formGroupSelector: ".form-group",
+  errorSelector: ".form-message",
+  rules: [
+    Validator.isRequired("#fullname", "Vui long nhap ten day du cua ban"),
+    Validator.isRequired("#email"),
+    Validator.isEmail("#email"),
+    Validator.minLength("#password", 6),
+    Validator.isRequired("#password_confirmation"),
+    Validator.isRequired("input[name='gender']"),
+  
+    Validator.isRequired("#province", "Vui long chon tinh thanh"),
+    Validator.isConfirmed(
+      "#password_confirmation",
+      function () {
+        return document.querySelector("#form-1 #password").value;
+      },
+      "Mat khau nhap lai khong chinh xac"
+    )
+  ],
+  onSubmit: function (data) {
+    //call API
+    console.log(data);
+
+    var accounts = JSON.parse(localStorage.getItem('accounts'))
+    if (accounts === null)  accounts = []
+    accounts.push({
+      email: data.email,
+      password: data.password,
+    })
+    localStorage.setItem('accounts', JSON.stringify(accounts))
+    formSignUp.style.display = 'none'
+    player.style.display = 'block'
+    app.start()
+  }
+});
+
+
+Validator({
+  form: "#form-2",
+  formGroupSelector: ".form-group",
+  errorSelector: ".form-message",
+  rules: [
+    Validator.isRequired("#email", "Vui long nhap email"),
+    Validator.minLength("#password", 6),
+  ],
+  onSubmit: function (data) {
+    //call API
+    console.log(data);
+    
+
+    var accounts = JSON.parse(localStorage.getItem('accounts'))
+    
+    accounts.forEach((account) => {
+      if (account.email === data.email && account.password === data.password) {
+        formLogin.style.display = 'none'
+        player.style.display = 'block'
+        app.start()
+    }})
+
+
+
+
+  }
+});
+
+    
+
+
+
+
+
+
+
 
 
 const app = {
@@ -153,7 +241,7 @@ const app = {
   handleEvents: function () {
     const _this = this
     const cdWidth = cd.offsetWidth
-
+    console.log(cd.offsetWidth)
 
     
 
@@ -172,6 +260,7 @@ const app = {
       if (_this.isScroll) {
         if (scrollTop < _this.prevScrollTop) {
           const newCdWidth = cdWidth - scrollTop
+          console.log(newCdWidth)
           if (cd.offsetWidth > newCdWidth) {
 
           } else {
@@ -181,6 +270,8 @@ const app = {
           }
         } else {
           const newCdWidth = cdWidth - scrollTop
+          console.log(newCdWidth)
+
           cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
           cd.style.opacity = newCdWidth / cdWidth
         }
@@ -321,7 +412,7 @@ const app = {
 
     }
 
-    // Xu ly khi an phim Right || Left Arrow || Up Arrow || Down Arrow
+    //Xu ly khi an phim Right || Left Arrow || Up Arrow || Down Arrow
     window.onkeydown = (e) => {
       e.preventDefault();
       if (e.keyCode === 39) {
@@ -465,4 +556,4 @@ const app = {
   },
 }
 
-app.start()
+
