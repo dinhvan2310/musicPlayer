@@ -21,12 +21,12 @@ const randomBtn = $('.btn-random')
 const repeatBtn = $('.btn-repeat')
 const playList = $('.playlist')
 const volumeSetUp = $('.volume-set-up')
-const formLogin =  $('.form__logIn')
+const formLogin = $('.form__logIn')
 const formSignUp = $('.form__signUp')
 const signUpBtn = $('#signUpBtn')
 const signUpSubmit = $('#signUpSubmit')
 
-let show 
+let show
 
 signUpBtn.onclick = function () {
   formLogin.style.display = 'none'
@@ -43,9 +43,6 @@ Validator({
     Validator.isEmail("#email"),
     Validator.minLength("#password", 6),
     Validator.isRequired("#password_confirmation"),
-    Validator.isRequired("input[name='gender']"),
-  
-    Validator.isRequired("#province", "Vui long chon tinh thanh"),
     Validator.isConfirmed(
       "#password_confirmation",
       function () {
@@ -58,16 +55,33 @@ Validator({
     //call API
     console.log(data);
 
+    var checkEmail = true;
+
     var accounts = JSON.parse(localStorage.getItem('accounts'))
-    if (accounts === null)  accounts = []
-    accounts.push({
-      email: data.email,
-      password: data.password,
+
+    accounts.forEach(function (account) {
+      if (data.email === account.email) {
+        checkEmail = false;
+      }
     })
-    localStorage.setItem('accounts', JSON.stringify(accounts))
-    formSignUp.style.display = 'none'
-    player.style.display = 'block'
-    app.start()
+
+    if (checkEmail) {
+      if (accounts === null) accounts = []
+      accounts.push({
+        email: data.email,
+        password: data.password,
+      })
+      localStorage.setItem('accounts', JSON.stringify(accounts))
+      formSignUp.style.display = 'none'
+      player.style.display = 'block'
+      app.start()
+    } else {
+      formSignUp.style.display = 'none'
+      formSignUp.style.display = 'block'
+    }
+
+
+
   }
 });
 
@@ -83,16 +97,17 @@ Validator({
   onSubmit: function (data) {
     //call API
     console.log(data);
-    
+
 
     var accounts = JSON.parse(localStorage.getItem('accounts'))
-    
+
     accounts.forEach((account) => {
       if (account.email === data.email && account.password === data.password) {
         formLogin.style.display = 'none'
         player.style.display = 'block'
         app.start()
-    }})
+      }
+    })
 
 
 
@@ -100,7 +115,7 @@ Validator({
   }
 });
 
-    
+
 
 
 
@@ -186,7 +201,7 @@ const app = {
     },
   ],
 
-  setConfig: function(key, value) {
+  setConfig: function (key, value) {
     this.config[key] = value
     localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
   },
@@ -243,7 +258,7 @@ const app = {
     const cdWidth = cd.offsetWidth
     console.log(cd.offsetWidth)
 
-    
+
 
     // Xu ly CD quay / dung 
     const cdThumbAnimate = cdThumb.animate([
@@ -275,12 +290,12 @@ const app = {
           cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
           cd.style.opacity = newCdWidth / cdWidth
         }
-        
+
       }
       if (_this.currentIndex === 0) {
         const newCdWidth = cdWidth - scrollTop
-          cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
-          cd.style.opacity = newCdWidth / cdWidth
+        cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
+        cd.style.opacity = newCdWidth / cdWidth
       }
       _this.prevScrollTop = scrollTop
     }
@@ -421,30 +436,30 @@ const app = {
       if (e.keyCode === 37) {
         prevBtn.click()
       }
-      if(e.keyCode === 32) {
+      if (e.keyCode === 32) {
         playBtn.click()
       }
       if (e.keyCode === 38) {
-        
+
         if (audio.volume <= 0.9) {
           audio.volume = audio.volume + 0.1
         }
         if (audio.volume > 0.9) {
           audio.volume = 1
         }
-        
+
         volumeSetUp.value = audio.volume
-        
+
         clearTimeout(show)
         volumeSetUp.classList.add('show', _this.isVolumeUp)
-        show = setTimeout(function(){
+        show = setTimeout(function () {
           volumeSetUp.classList.remove('show', _this.isVolumeUp)
-          
-        console.log(audio.volume, "len")
-        },2000)
+
+          console.log(audio.volume, "len")
+        }, 2000)
 
 
-        
+
 
       }
       if (e.keyCode === 40) {
@@ -454,20 +469,20 @@ const app = {
           audio.volume = 0
         }
         volumeSetUp.value = audio.volume
-        
+
         clearTimeout(show)
         volumeSetUp.classList.add('show', _this.isVolumeUp)
-        show = setTimeout(function(){
+        show = setTimeout(function () {
           volumeSetUp.classList.remove('show', _this.isVolumeUp)
           console.log(audio.volume, "xuong")
-        },2000)
+        }, 2000)
 
 
-        
+
 
       }
-      
-      
+
+
     }
 
 
@@ -476,10 +491,10 @@ const app = {
   scrollToActiveSong: function () {
     this.isScroll = false
 
-      $('.song.active').scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      })
+    $('.song.active').scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    })
 
     setTimeout(() => {
       this.isScroll = true
@@ -492,8 +507,8 @@ const app = {
     cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
     audio.src = this.currentSong.path
   },
-  
-  loadConfig: function() {
+
+  loadConfig: function () {
     this.isRandomUp = this.config.isRandomUp
     this.isRepeatUp = this.config.isRepeatUp
   },
