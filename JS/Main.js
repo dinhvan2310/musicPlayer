@@ -546,6 +546,7 @@ const app = {
     audio.play()
   },
 
+  
   start: function () {
 
     this.loadConfig()
