@@ -380,12 +380,12 @@ header h2 {
 }
 
 .song .title {
-  font-size: 18px;
+  font-size: 1.8rem;
   color: var(--text-color);
 }
 
 .song .author {
-  font-size: 12px;
+  font-size: 1.2rem;
   color: #999;
 }
 
@@ -409,5 +409,12 @@ header h2 {
   }
   .playlist {
     margin-top: 320px;
+  }
+  .song .title {
+    font-size: 1.4rem;
+  }
+  
+  .song .author {
+    font-size: 1.0rem;
   }
 }
