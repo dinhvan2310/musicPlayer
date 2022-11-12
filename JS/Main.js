@@ -254,6 +254,8 @@ Validator({
     var checkEmail = true;
 
     var accounts = JSON.parse(localStorage.getItem('accounts'))
+    
+    if (accounts === null) accounts = []
 
     accounts.forEach(function (account) {
       if (data.email === account.email) {
@@ -262,7 +264,7 @@ Validator({
     })
 
     if (checkEmail) {
-      if (accounts === null) accounts = []
+      
       accounts.push({
         email: data.email,
         password: data.password,
