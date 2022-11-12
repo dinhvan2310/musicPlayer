@@ -350,7 +350,7 @@ const app = {
     },
     {
       id: 2,
-      name: 'STAND BY ME',
+      name: 'Stand By Me',
       singer: 'コバソロ & 春茶',
       path: './assests/music/song3.mp3',
       image: './assests/img/song3.png',
