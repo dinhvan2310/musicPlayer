@@ -254,7 +254,7 @@ Validator({
     var checkEmail = true;
 
     var accounts = JSON.parse(localStorage.getItem('accounts'))
-    
+
     if (accounts === null) accounts = []
 
     accounts.forEach(function (account) {
@@ -336,52 +336,52 @@ const app = {
   songs: [
     {
       id: 0,
-      name: 'Quên Anh ĐI',
-      singer: 'MONO',
+      name: 'Grand Escape',
+      singer: 'RADWIMPS',
       path: './assests/music/song1.mp3',
-      image: './assests/img/song1.jpg',
+      image: './assests/img/song1.png',
     },
     {
       id: 1,
-      name: 'Waiting For You',
-      singer: 'MONO',
+      name: '夢の雫と星の花 - 「Truy tìm giắc mơ đó」',
+      singer: ' IKURA',
       path: './assests/music/song2.mp3',
-      image: './assests/img/song1.jpg',
+      image: './assests/img/song2.png',
     },
     {
       id: 2,
-      name: 'Em Là',
-      singer: 'MONO',
+      name: 'STAND BY ME',
+      singer: 'コバソロ & 春茶',
       path: './assests/music/song3.mp3',
-      image: './assests/img/song1.jpg',
+      image: './assests/img/song3.png',
     },
     {
       id: 3,
-      name: 'Buông',
-      singer: 'MONO',
+      name: 'Lemon - Kenshi Yonezu',
+      singer: 'Kobasolo & Harutya',
       path: './assests/music/song4.mp3',
-      image: './assests/img/song1.jpg',
+      image: './assests/img/song4.png',
     },
     {
       id: 4,
-      name: 'Anh Không Thể',
-      singer: 'MONO',
+      name: '打上花火/DAOKO × 米津玄師',
+      singer: 'コバソロ & 春茶 & 伊礼亮',
       path: './assests/music/song5.mp3',
-      image: './assests/img/song1.jpg',
+      image: './assests/img/song5.png',
     },
     {
       id: 5,
-      name: 'L.I.E',
-      singer: 'MONO',
+      name: 'Haiiro to Ao + Masahiro Sugita',
+      singer: 'Kobalsolo & Harutya',
       path: './assests/music/song6.mp3',
-      image: './assests/img/song1.jpg',
+      image: './assests/img/song6.png',
     },
     {
       id: 6,
-      name: 'Do You',
-      singer: 'MONO',
+      name: 'Gurenge',
+      singer: 'Lisa',
       path: './assests/music/song7.mp3',
-      image: './assests/img/song1.jpg',
+      image: './assests/img/song7.png',
     },
     {
       id: 7,
@@ -392,10 +392,59 @@ const app = {
     },
     {
       id: 8,
-      name: 'Grand Escape',
-      singer: 'RADWIMPS',
+      name: 'Ánh Nắng Của Anh',
+      singer: 'Đức Phúc',
       path: './assests/music/song9.mp3',
-      image: './assests/img/song9.jpg',
+      image: './assests/img/song9.png',
+    },
+    {
+      id: 9,
+      name: 'Sài Gòn Đau Lòng Quá',
+      singer: 'HỨA KIM TUYỀN & HOÀNG DUYÊN',
+      path: './assests/music/song10.mp3',
+      image: './assests/img/song10.png',
+    },
+    {
+      id: 10,
+      name: 'Anh Ơi Ở Lại',
+      singer: 'Chi Pu',
+      path: './assests/music/song11.mp3',
+      image: './assests/img/song11.png',
+    },
+    {
+      id: 11,
+      name: 'Nàng Thơ',
+      singer: 'Hoàng Dũng',
+      path: './assests/music/song12.mp3',
+      image: './assests/img/song12.png',
+    },
+    {
+      id: 12,
+      name: 'Ngày Chưa Giông Bão',
+      singer: 'Bùi Lan Hương',
+      path: './assests/music/song13.mp3',
+      image: './assests/img/song13.png',
+    },
+    {
+      id: 13,
+      name: 'Thằng Điên',
+      singer: 'JUSTATEE x PHƯƠNG LY',
+      path: './assests/music/song14.mp3',
+      image: './assests/img/song14.png',
+    },
+    {
+      id: 14,
+      name: 'Tháng Tư Là Lời Nói Dối Của Em',
+      singer: 'Hà Anh Tuấn',
+      path: './assests/music/song15.mp3',
+      image: './assests/img/song15.png',
+    },
+    {
+      id: 15,
+      name: 'Hết Thương Cạn Nhớ',
+      singer: 'ĐỨC PHÚC ',
+      path: './assests/music/song16.mp3',
+      image: './assests/img/song16.png',
     },
   ],
 
@@ -562,6 +611,7 @@ const app = {
     volumeBtn.onclick = function (e) {
       _this.isVolumeUp = !_this.isVolumeUp
       volumeSetUp.classList.toggle('show', _this.isVolumeUp)
+      // volumeBtn.style.display = 'none'
       e.stopPropagation()
     }
 
@@ -569,6 +619,7 @@ const app = {
       if (_this.isVolumeUp) {
         _this.isVolumeUp = !_this.isVolumeUp
         volumeSetUp.classList.remove('show', _this.isVolumeUp)
+        // volumeBtn.style.display = 'block'
       }
     }
 
@@ -768,5 +819,3 @@ const app = {
 
   },
 }
-
-
